@@ -3,9 +3,17 @@ import StarWarsContext from '../context/StarWarsContext';
 
 function Table() {
   const { result } = useContext(StarWarsContext);
+  const { handleChange, searchFilter } = useContext(StarWarsContext);
 
   return (
     <section>
+      <input
+        type="text"
+        placeholder="Search"
+        data-testid="name-filter"
+        value={ searchFilter.input }
+        onChange={ handleChange }
+      />
       <table>
         <thead>
           <tr>
@@ -25,23 +33,25 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {result?.map((element) => (
-            <tr key={ element.name }>
-              <td>{element.name}</td>
-              <td>{element.rotation_period}</td>
-              <td>{element.orbital_period}</td>
-              <td>{element.diameter}</td>
-              <td>{element.climate}</td>
-              <td>{element.gravity}</td>
-              <td>{element.terrain}</td>
-              <td>{element.surface_water}</td>
-              <td>{element.population}</td>
-              <td>{element.films}</td>
-              <td>{element.creted}</td>
-              <td>{element.edited}</td>
-              <td>{element.url}</td>
-            </tr>
-          ))}
+          {result
+            ?.filter((planet) => planet.name.includes(searchFilter.input))
+            .map((el, index) => (
+              <tr key={ index }>
+                <td>{el.name}</td>
+                <td>{el.rotation_period}</td>
+                <td>{el.orbital_period}</td>
+                <td>{el.diameter}</td>
+                <td>{el.climate}</td>
+                <td>{el.gravity}</td>
+                <td>{el.terrain}</td>
+                <td>{el.surface_water}</td>
+                <td>{el.population}</td>
+                <td>{el.films}</td>
+                <td>{el.creted}</td>
+                <td>{el.edited}</td>
+                <td>{el.url}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </section>
