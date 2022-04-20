@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
+import Column from './Column';
 
 function Table() {
   const { result } = useContext(StarWarsContext);
@@ -14,22 +15,23 @@ function Table() {
         value={ searchFilter.input }
         onChange={ handleChange }
       />
+      <Column />
       <table>
         <thead>
           <tr>
-            <th>name</th>
-            <th>rotation_period</th>
-            <th>orbital_period</th>
-            <th>diameter</th>
-            <th>climate</th>
-            <th>gravity</th>
-            <th>terrain</th>
-            <th>surface_water</th>
-            <th>population</th>
-            <th>films</th>
-            <th>created</th>
-            <th>edited</th>
-            <th>url</th>
+            <th>Name</th>
+            <th>Rotation Period</th>
+            <th>Orbital Period</th>
+            <th>Diameter</th>
+            <th>Climate</th>
+            <th>Gravity</th>
+            <th>Terrain</th>
+            <th>Surface_water</th>
+            <th>Population</th>
+            <th>Films</th>
+            <th>Created</th>
+            <th>Edited</th>
+            <th>Url</th>
           </tr>
         </thead>
         <tbody>
