@@ -4,18 +4,26 @@ import StarWarsContext from './StarWarsContext';
 
 function StarWarsProvider({ children }) {
   const [result, setResult] = useState();
-  const [allResults, setAllResults] = useState();
+  // const [allResults, setAllResults] = useState();
   const [searchFilter, setSearchFilter] = useState({
     input: '',
   });
-  const [column, setColumn] = useState('population');
+  const [columnState, setColumnState] = useState('population');
+  const [column, setColumn] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState('0');
 
   async function fetchPlanetList() {
     const response = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
     const data = await response.json();
-    setResult(data.results); setAllResults(data.results);
+    setResult(data.results);
+    // setAllResults(data.results);
   }
 
   const handleChange = ({ target }) => {
@@ -27,13 +35,18 @@ function StarWarsProvider({ children }) {
   const handleClickFilter = () => {
     switch (comparison) {
     case 'maior que':
-      return setResult(result.filter((el) => el[column] > +value));
+      setResult(result.filter((el) => el[columnState] > +value));
+      break;
     case 'menor que':
-      return setResult(result.filter((el) => el[column] < +value));
+      setResult(result.filter((el) => el[columnState] < +value));
+      break;
     case 'igual a':
-      return setResult(result.filter((el) => +el[column] === +value));
+      setResult(result.filter((el) => +el[columnState] === +value));
+      break;
     default:
     }
+    const removeOption = column.filter((remove) => remove !== columnState);
+    setColumn(removeOption);
   };
 
   useEffect(() => {
@@ -42,14 +55,16 @@ function StarWarsProvider({ children }) {
 
   const contextValue = {
     result,
-    handleChange,
     searchFilter,
     column,
     comparison,
     value,
+    columnState,
     setColumn,
     setComparison,
+    setColumnState,
     setValue,
+    handleChange,
     handleClickFilter,
   };
 

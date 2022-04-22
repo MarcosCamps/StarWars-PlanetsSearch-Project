@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
-// import StarWarsContext from '../context/StarWarsContext';
 
 function Column() {
   const {
-    setColumn,
     setComparison,
+    setColumnState,
     setValue,
     column,
+    columnState,
     comparison,
     value,
     handleClickFilter,
@@ -21,14 +21,12 @@ function Column() {
           data-testid="column-filter"
           name="column"
           id="column"
-          value={ column }
-          onChange={ (e) => setColumn(e.target.value) }
+          value={ columnState }
+          onChange={ (e) => setColumnState(e.target.value) }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {column.map((el, index) => (
+            <option key={ index } value={ el }>{el}</option>
+          ))}
         </select>
       </label>
       <label htmlFor="operator">
