@@ -27,11 +27,11 @@ function StarWarsProvider({ children }) {
   const handleClickFilter = () => {
     switch (comparison) {
     case 'maior que':
-      return setResult(allResults.filter((el) => el[column] > +value));
+      return setResult(result.filter((el) => el[column] > +value));
     case 'menor que':
-      return setResult(allResults.filter((el) => el[column] < +value));
+      return setResult(result.filter((el) => el[column] < +value));
     case 'igual a':
-      return setResult(allResults.filter((el) => +el[column] === +value));
+      return setResult(result.filter((el) => +el[column] === +value));
     default:
     }
   };
